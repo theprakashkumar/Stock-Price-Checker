@@ -8,6 +8,8 @@ const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
+const mongoose = require('mongoose');
+
 const app = express();
 
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -28,6 +30,15 @@ fccTestingRoutes(app);
 
 //Routing for API 
 apiRoutes(app);  
+
+// Connect with database
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+})
+.then(() => console.log("Connected 🔥"))
+.catch(err => console.log("Someting Went Wrong :(", err));
     
 //404 Not Found Middleware
 app.use(function(req, res, next) {
