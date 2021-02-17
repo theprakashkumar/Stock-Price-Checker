@@ -78,7 +78,8 @@ suite('Functional Tests', function () {
                 console.log(res.body)
                 assert.equal(res.body.stockData[0].stock, 'GOOG');
                 assert.equal(res.body.stockData[1].stock, 'MSFT');
-                assert.property(res.body.stockData, 'rel_likes');
+                assert.property(res.body.stockData[0], 'rel_likes');
+                assert.property(res.body.stockData[1], 'rel_likes');
                 done();
             });
     })
